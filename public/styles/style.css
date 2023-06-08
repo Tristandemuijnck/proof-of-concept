@@ -1,0 +1,133 @@
+:root{
+	--main-bg: #F3F4F6;
+	--primary: #059669;
+	--primary-text: #FFFFFF;
+	--light-text: #374151;
+	--light-border: #DDDDDD;
+	--container-bg: #FFFFFF;
+	--secondary: #960505;
+
+	--container-radius: 8px;
+	--btn-radius: 6px;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    background: var(--main-bg);
+    font: 100%/1.4 "Helvetiva Neue", Helvetica, Arial, sans-serif;
+    height: 100%;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Overzichtspagina                              */
+/* -------------------------------------------------------------------------- */
+
+/* --------------------------------- Heading -------------------------------- */
+header{
+	background: var(--main-bg);
+	border-bottom: 1px solid var(--light-border);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 1.5rem;
+	row-gap: 1rem;
+}
+
+.heading-text{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.heading-title{
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.heading-subtitle{
+	font-size: 1.2rem;
+	font-weight: 400;
+}
+
+/* View switch */
+.view-button{
+	display: flex;
+}
+
+.color-switch{
+	display: flex;
+	position: relative;
+	margin: 0px;
+}
+
+.color-switch > label.switch-inner{
+	margin: 0px;
+	width: 11rem;
+	height: 2rem;
+	background: var(--light-border);
+	border-radius: var(--btn-radius);
+	overflow: hidden;
+	position: relative;
+	transition: all 0.3s ease;
+	display: block;
+}
+
+.color-switch > label.switch-inner:before{
+	content: attr(data-on);
+	position: absolute;
+	font-size: 0.8rem;
+	font-weight: 500;
+	top: 7px;
+	right: 0;
+	width: 5.5rem;
+	text-align: center;
+}
+
+.color-switch > label.switch-inner:after{
+	content: attr(data-off);
+	font-size: 0.9rem;
+	width: 5.5rem;
+	height: 22px;
+	background: var(--primary);
+	color: var(--primary-text);
+	border-radius: var(--btn-radius);
+	position: absolute;
+	text-align: center;
+	transition: all 0.3s ease;
+	box-shadow: 0px 0px 6px -2px #111;
+	padding: 5px 0px;
+	left: 0;
+	top: 0;
+}
+
+.color-switch input[type="checkbox"]{
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+	margin: 0px;
+}
+
+.color-switch input[type="checkbox"]:checked + label.switch-inner:after{
+	content: attr(data-on);
+	left: 50%;
+	background: var(--secondary);
+}
+
+.color-switch input[type="checkbox"]:checked + label.switch-inner:before{
+	content: attr(data-off);
+	right: auto;
+	left: 0;
+}

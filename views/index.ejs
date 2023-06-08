@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/styles/style.css">
 	<title>Aanwezigheidsoverzicht</title>
 </head>
 <body>
@@ -14,9 +15,11 @@
 			<p class="heading-subtitle">TristanHVA</p>
 		</div>
 		<!-- View buttons -->
-		<div class="view-buttons">
-			<button class="view-button">Ingeklokt</button>
-			<button class="view-button">Uitgeklokt</button>
+		<div class="view-button">
+			<label class="color-switch">
+				<input type="checkbox" name="color-mode" id="color-mode" value="1">
+				<label for="color-mode" data-off="Ingeklokt" data-on="Uitgeklokt" class="switch-inner"></label>
+			</label>
 		</div>
 	</header>
 	<main>
