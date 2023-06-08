@@ -26,6 +26,14 @@ server.get("/", async (req, res) => {
 	res.render("index", {info})
 })
 
+server.get("/inklokken", async (req, res) => {
+	res.render("inklokken")
+})
+
+server.get("/uitklokken", async (req, res) => {
+	res.render("uitklokken")
+})
+
 /* -------------------------------------------------------------------------- */
 /*                                API Functions                               */
 /* -------------------------------------------------------------------------- */
