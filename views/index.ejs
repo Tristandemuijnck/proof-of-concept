@@ -8,58 +8,55 @@
 	<title>Aanwezigheidsoverzicht</title>
 </head>
 <body>
-	<header>
-		<!-- Heading text -->
-		<div class="heading-text">
-			<h1 class="heading-title">Kloktijden</h1>
-			<p class="heading-subtitle">TristanHVA</p>
-		</div>
-		<!-- View buttons -->
-		<div class="view-button">
-			<label class="color-switch">
-				<input type="checkbox" name="color-mode" id="color-mode" value="1">
-				<label for="color-mode" data-off="Ingeklokt" data-on="Uitgeklokt" class="switch-inner"></label>
-			</label>
-		</div>
-	</header>
+	<div class="content-wrapper">
+		<header>
+			<!-- Heading text -->
+			<div class="heading-text">
+				<h1 class="heading-title">Kloktijden</h1>
+				<p class="heading-subtitle">TristanHVA</p>
+			</div>
+			<!-- View buttons -->
+			<div class="view-button">
+				<label class="color-switch">
+					<input type="checkbox" name="color-mode" id="color-mode" value="1">
+					<label for="color-mode" data-off="Ingeklokt" data-on="Uitgeklokt" class="switch-inner"></label>
+				</label>
+			</div>
+		</header>
 
-	<main>
-		<!-- Overzicht  -->
-		<section class="overzicht">
-			<!-- Ingeklokt -->
-			<div class="overzicht-ingeklokt component">
-				<!-- Individuele medewerker -->
-				<div class="card">
-					<img src="" alt="" width="40" height="40">
-					<div class="card-content">
-						<h2 class="mw-name">Tristan de Muijnck</h2>
-						<p class="start-time">9:30 - 2 minuten geleden</p>
+		<main>
+			<!-- Overzicht  -->
+			<section class="overzicht">
+				<!-- Ingeklokt -->
+				<div class="overzicht-ingeklokt component">
+					<!-- Individuele medewerker -->
+					<div class="card">
+						<img src="" alt="" width="40" height="40">
+						<div class="card-content">
+							<h2 class="mw-name">Tristan de Muijnck</h2>
+							<p class="start-time">9:30 - 2 minuten geleden</p>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- Uitgeklokt -->
-			<div class="overzicht-uitgeklokt component">
-				<!-- Individuele medewerker -->
-				<div class="card">
-					<img src="" alt="" width="40" height="40">
-					<div class="card-content">
-						<h2 class="mw-name">Tristan de Muijnck</h2>
-						<p class="start-time">9:30 - 2 minuten geleden</p>
+				<!-- Uitgeklokt -->
+				<div class="overzicht-uitgeklokt component">
+					<!-- Individuele medewerker -->
+					<div class="card">
+						<img src="" alt="" width="40" height="40">
+						<div class="card-content">
+							<h2 class="mw-name">Tristan de Muijnck</h2>
+							<p class="start-time">9:30 - 2 minuten geleden</p>
+						</div>
 					</div>
 				</div>
-			</div>
-		</section>
-	</main>
-	
-	<nav class="mobile-nav">
-		<ul>
-			<li><a href=""><img src="/assets/docs.svg" alt="Docs icon" width="20" height="20"></a></li>
-			<li><a href=""><img src="/assets/clock.svg" alt="Clock icon" width="20" height="20"></a></li>
-			<li><a href=""><img src="/assets/check.svg" alt="Check icon" width="20" height="20"></a></li>
-			<li><a href=""><img src="/assets/stopwatch.svg" alt="Stopwatch icon" width="20" height="20"></a></li>
-			<li><a href=""><img src="/assets/burger-menu.svg" alt="Burger menu" width="20" height="20"></a></li>
-		</ul>
-	</nav>
+			</section>
+		</main>
+		
+		<%- include("./modules/MobileNav") %>
+	</div>
+
+
+
 </body>
 </html>

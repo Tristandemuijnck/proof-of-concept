@@ -37,6 +37,14 @@ ul{
 /*                              Overzichtspagina                              */
 /* -------------------------------------------------------------------------- */
 
+/* ------------------------------- Grid setup ------------------------------- */
+.content-wrapper{
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 2.5fr 9fr 1fr;
+	height: 100dvh;
+}
+
 /* --------------------------------- Heading -------------------------------- */
 header{
 	background: var(--main-bg);
@@ -46,6 +54,7 @@ header{
 	align-items: center;
 	padding: 1.5rem;
 	row-gap: 1rem;
+	grid-row: 1 / 2;
 }
 
 .heading-text{
@@ -144,6 +153,7 @@ header{
 	bottom: 0;
 	width: 100%;
 	margin-bottom: 0.6rem;
+	grid-row: 3 / 4;
 }
 
 .mobile-nav ul{
@@ -188,4 +198,27 @@ header{
 
 .mobile-nav ul li:last-child::after{
 	width: 0;
+}
+
+/* -------------------------------- Overzicht ------------------------------- */
+main{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* justify-content: center; */
+	position: relative;
+	grid-row: 2 / 3;
+}
+
+.overzicht{
+	display: flex;
+	flex-direction: column;
+	width: 85%;
+	height: 100%;
+	background: var(--container-bg);
+	margin: 1rem auto;
+	border-radius: var(--container-radius);
+	box-shadow: var(--container-shadow);
 }
