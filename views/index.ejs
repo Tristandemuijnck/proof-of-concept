@@ -54,9 +54,15 @@
 						<!-- Tijdsverschil tussen inklokken en nu -->
 						<% const timeNow = new Date() %>
 						<% const timeDiff = (timeNow - clockInDate) %>
+						<%# console.log(timeDiff) %>
 						<% const diffMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)) %>
 						<% const diffHours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) %>
-						<% const timePast = (diffMinutes < 61 ? `${diffMinutes} minuten geleden`:`ongeveer ${diffHours} uur geleden`) %>
+						<% let timePast %>
+						<% if (diffHours > 0) {
+							timePast = `ongeveer ${diffHours} uur geleden`
+						} else{
+							timePast = `${diffMinutes} minuten geleden`
+						} %>
 
 						<div class="card">
 							<picture class="avatar-wrap">

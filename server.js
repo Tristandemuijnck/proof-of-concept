@@ -29,6 +29,7 @@ const end = new Date(date.setDate(date.getDate() + 1)).toJSON().slice(0, 10)
 server.get("/", async (req, res) => {
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
 	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=98756&start=${start}&end=${end}`)
+	//console.log(employees)
 	res.render("index", {employees, punches})
 })
 
