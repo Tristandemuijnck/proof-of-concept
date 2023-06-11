@@ -30,14 +30,31 @@
 				<!-- Ingeklokt -->
 				<div class="overzicht-ingeklokt component">
 					<!-- Individuele medewerker -->
-					<div class="card">
-						<img src="" alt="" width="40" height="40">
+					<!-- <div class="card">
+						<picture class="avatar-wrap">
+							<source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp">
+							<img class="avatar-img" src="/assets/avatar.png" alt="User avatar" width="40" height="40">
+						</picture>
+
 						<div class="card-content">
 							<h2 class="mw-name">Tristan de Muijnck</h2>
 							<p class="start-time">9:30 - 2 minuten geleden</p>
 						</div>
-					</div>
-				</div>
+					</div> -->
+
+					<% for( let i = 0; i < 15; i++ ) { %>
+						<div class="card">
+							<picture class="avatar-wrap">
+								<source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp">
+								<img class="avatar-img" src="/assets/avatar.png" alt="User avatar" width="40" height="40">
+							</picture>
+
+							<div class="card-content">
+								<h2 class="mw-name">Tristan de Muijnck</h2>
+								<p class="start-time">9:30 - 2 minuten geleden</p>
+							</div>
+						</div>
+					<% } %>
 
 				<!-- Uitgeklokt -->
 				<div class="overzicht-uitgeklokt component">
@@ -52,7 +69,7 @@
 				</div>
 			</section>
 		</main>
-		
+
 		<%- include("./modules/MobileNav") %>
 	</div>
 

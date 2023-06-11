@@ -222,3 +222,65 @@ main{
 	border-radius: var(--container-radius);
 	box-shadow: var(--container-shadow);
 }
+
+.overzicht-uitgeklokt{
+	display: none;
+}
+
+.overzicht-ingeklokt{
+	display: flex;
+	flex-direction: column;
+	width: 90%;
+	max-height: 70dvh;
+	margin: 0 auto;
+	padding: 1.2rem 0.6rem;
+	gap: 0.6rem;
+	overflow-y: auto;
+}
+
+.overzicht-ingeklokt::-webkit-scrollbar{
+	width: 0;
+}
+
+.card{
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	border-bottom: 1px solid var(--light-border);
+	padding-bottom: 0.5rem;
+}
+
+.avatar-wrap{
+	display: flex;
+	align-items: center;
+}
+
+.avatar-img{
+	border-radius: 50%;
+}
+
+.card-content{
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+.card-content::before{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -0.5rem;
+	width: 1px;
+	height: 100%;
+	background: var(--primary);
+}
+
+.mw-name{
+	font-size: 1rem;
+	word-break: break-all;
+}
+
+.start-time{
+	font-size: 0.8rem;
+	color: var(--light-text);
+}
