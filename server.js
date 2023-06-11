@@ -18,12 +18,32 @@ server.listen(server.get("port"), () => {
 	console.log(`Application started on http://localhost:${server.get("port")}`)
 })
 
+const date = new Date()
+const start = new Date().toJSON().slice(0, 10)
+const end = new Date(date.setDate(date.getDate() + 1)).toJSON().slice(0, 10)
+
+
 /* -------------------------------------------------------------------------- */
 /*                                Server Routes                               */
 /* -------------------------------------------------------------------------- */
 server.get("/", async (req, res) => {
-	const info = await dataFetch("https://api.werktijden.nl/2/employees")
-	res.render("index", {info})
+	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
+	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=98756&start=${start}&end=${end}`)
+	res.render("index", {employees, punches})
+})
+
+server.post("/", async (req, res) => {
+	const postData = {
+		"employee_id": 368786,
+		"department_id": 98756,
+	}
+
+	postJson("https://api.werktijden.nl/2/timeclock/clockin", postData).then((data) => {
+		if (data.status == 200) {
+			res.redirect("/inklokken")
+			console.log("Status 200: Done!")
+		}
+	})
 })
 
 server.get("/inklokken", async (req, res) => {
@@ -48,4 +68,17 @@ async function dataFetch(url) {
 		.then((response) => response.json())
 		.catch((error) => error);
 	return data;
+}
+
+async function postJson(url, body) {
+	console.log(2, JSON.stringify(body));
+	return await fetch(url, {
+			method: "post",
+			body: JSON.stringify(body),
+			headers: {
+				"Content-Type": "application/json"
+			},
+		})
+		.then((response) => response.json())
+		.catch((error) => error);
 }

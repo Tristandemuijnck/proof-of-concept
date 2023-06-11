@@ -230,7 +230,7 @@ main{
 .overzicht-ingeklokt{
 	display: flex;
 	flex-direction: column;
-	width: 90%;
+	width: 95%;
 	max-height: 70dvh;
 	margin: 0 auto;
 	padding: 1.2rem 0.6rem;

@@ -29,32 +29,48 @@
 			<section class="overzicht">
 				<!-- Ingeklokt -->
 				<div class="overzicht-ingeklokt component">
-					<!-- Individuele medewerker -->
-					<!-- <div class="card">
-						<picture class="avatar-wrap">
-							<source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp">
-							<img class="avatar-img" src="/assets/avatar.png" alt="User avatar" width="40" height="40">
-						</picture>
 
-						<div class="card-content">
-							<h2 class="mw-name">Tristan de Muijnck</h2>
-							<p class="start-time">9:30 - 2 minuten geleden</p>
-						</div>
-					</div> -->
+					<!-- Lijst met alle punches met type "clock_in" -->
+					<% const clockedIn = punches.data.filter(pu => pu.type === 'clock_in') %>
 
-					<% for( let i = 0; i < 15; i++ ) { %>
+					<!-- Lijst met alle punches met type "clock_out" -->
+					<% const clockedOut = punches.data.filter(pu => pu.type === 'clock_out') %>
+
+					<!-- Loop door alle ingeklokte instances -->
+					<% clockedIn.forEach(ci => { %>
+
+						<!-- Filter alle medewerkers met een punch instance -->
+						<% const medewerkers = employees.filter(em => em.id === ci.employee_id) %>
+
+						<!-- Vind gegevens van een specifieke medewerker -->
+						<% const clockedInMw = medewerkers.find(mw => mw.id === ci.employee_id) %>
+
+						<!-- Tijd van inklokken -->
+						<% const clockInDate = new Date(ci.timestamp) %>
+						<% const clockedInHours = clockInDate.getHours() %>
+						<% const clockedInMinutes = (clockInDate.getMinutes() < 10 ? '0':'') + clockInDate.getMinutes() %>
+						<% const clockedInTime = clockedInHours + ':' + clockedInMinutes %>
+
+						<!-- Tijdsverschil tussen inklokken en nu -->
+						<% const timeNow = new Date() %>
+						<% const timeDiff = (timeNow - clockInDate) %>
+						<% const diffMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)) %>
+						<% const diffHours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) %>
+						<% const timePast = (diffMinutes < 61 ? `${diffMinutes} minuten geleden`:`ongeveer ${diffHours} uur geleden`) %>
+
 						<div class="card">
 							<picture class="avatar-wrap">
-								<source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp">
-								<img class="avatar-img" src="/assets/avatar.png" alt="User avatar" width="40" height="40">
+								<!-- <source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp"> -->
+								<img class="avatar-img" src="<%- clockedInMw.avatar %>" alt="Avatar van <%- clockedInMw.name %>" width="40" height="40">
 							</picture>
 
 							<div class="card-content">
-								<h2 class="mw-name">Tristan de Muijnck</h2>
-								<p class="start-time">9:30 - 2 minuten geleden</p>
+								<h2 class="mw-name"><%- clockedInMw.name %></h2>
+								<p class="start-time"><%- clockedInTime %> - <%- timePast %></p>
 							</div>
 						</div>
-					<% } %>
+					<% }) %>
+				</div>
 
 				<!-- Uitgeklokt -->
 				<div class="overzicht-uitgeklokt component">
