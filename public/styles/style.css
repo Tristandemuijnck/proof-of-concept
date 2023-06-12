@@ -284,3 +284,48 @@ main{
 	font-size: 0.8rem;
 	color: var(--light-text);
 }
+
+/* Empty state */
+.empty-card{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1.5rem;
+	margin-top: 1rem;
+}
+
+.svg-wrap{
+	display: flex;
+	align-items: center;
+}
+
+.svg-img{
+	width: 5rem;
+	height: auto;
+}
+
+.empty-card-content{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+.empty-card-content::after{
+	content: "";
+	position: absolute;
+	bottom: -1rem;
+	width: 90%;
+	height: 1px;
+	background: var(--primary);
+	opacity: 0.3;
+}
+
+.empty-text{
+	font-size: 1rem;
+	word-break: break-word;
+	text-align: center;
+	color: var(--light-text);
+}
