@@ -1,0 +1,61 @@
+<div class="overzicht-uitgeklokt" id="overzicht-uitgeklokt">
+  <!-- Check if punches available -->
+  <% if (punches.data) { %>
+    <!-- Lijst met alle punches met type "clock_out" -->
+    <% const clockedOut = punches.data.filter(pu => pu.type === 'clock_out') %>
+
+    <!-- Check if clockedIn > 0 -->
+    <% if (clockedOut.length > 0) { %>
+      <% clockedOut.forEach(co => { %>
+
+        <!-- Filter alle medewerkers met een punch instance -->
+        <% const medewerkers = employees.filter(em => em.id === co.employee_id) %>
+
+        <!-- Vind gegevens van een specifieke medewerker -->
+        <% const clockedOutMw = medewerkers.find(mw => mw.id === co.employee_id) %>
+
+        <!-- Tijd van inklokken -->
+        <% const clockOutDate = new Date(co.timestamp) %>
+        <% const clockedOutHours = clockOutDate.getHours() %>
+        <% const clockedOutMinutes = (clockOutDate.getMinutes() < 10 ? '0':'') + clockOutDate.getMinutes() %>
+        <% const clockedOutTime = clockedOutHours + ':' + clockedOutMinutes %>
+
+        <!-- Tijdsverschil tussen inklokken en nu -->
+        <% const timeNow = new Date() %>
+        <% const timeDiff = (timeNow - clockOutDate) %>
+        <%# console.log(timeDiff) %>
+        <% const diffMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)) %>
+        <% const diffHours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) %>
+        <% let timePast %>
+        <% if (diffHours > 0) { %>
+          <% timePast = `ongeveer ${diffHours} uur geleden` %>
+        <% } else{ %>
+          <% timePast = `${diffMinutes} minuten geleden` %>
+        <% } %>
+
+        <div class="card reverse-card">
+          <picture class="avatar-wrap">
+            <!-- <source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp"> -->
+            <img class="avatar-img" src="<%- clockedOutMw.avatar %>" alt="Avatar van <%- clockedOutMw.name %>" width="40" height="40">
+          </picture>
+
+          <div class="card-content reverse-content">
+            <h2 class="mw-name"><%- clockedOutMw.name %></h2>
+            <p class="start-time reverse-time"><span><%- clockedOutTime %></span> <span>-</span> <span><%- timePast %></span></p>          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="empty-card">
+        <picture class="svg-wrap">
+          <img class="svg-img" src="/assets/employees.svg" alt="Employees icon" width="40" height="40">
+        </picture>
+
+        <div class="empty-card-content">
+          <h2 class="empty-text">Er zijn geen medewerkers uitgeklokt</h2>
+        </div>
+      </div>
+    <% } %>
+  <% } else { %>
+    <p>Er zijn geen medewerkers uitgeklokt</p>
+  <% } %>
+</div>
