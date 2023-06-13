@@ -47,18 +47,26 @@
 	</div>
 	<% }) %>
 	<% } else { %>
-	<div class="empty-card">
-		<picture class="svg-wrap">
-			<img class="svg-img" src="/assets/employees.svg" alt="Employees icon" width="40" height="40">
-		</picture>
+		<div class="empty-card">
+			<picture class="svg-wrap">
+				<img class="svg-img" src="/assets/employees.svg" alt="Employees icon" width="40" height="40">
+			</picture>
 
-		<div class="empty-card-content">
-			<h2 class="empty-text">Er zijn geen medewerkers ingeklokt</h2>
+			<div class="empty-card-content">
+				<h2 class="empty-text">Er zijn geen medewerkers ingeklokt</h2>
+			</div>
 		</div>
-	</div>
 	<% } %>
 	<% } else { %>
-	<p>Er zijn geen medewerkers ingeklokt</p>
+		<div class="empty-card">
+			<picture class="svg-wrap">
+				<img class="svg-img" src="/assets/employees.svg" alt="Employees icon" width="40" height="40">
+			</picture>
+
+			<div class="empty-card-content">
+				<h2 class="empty-text">Er zijn geen medewerkers ingeklokt</h2>
+			</div>
+		</div>
 	<% } %>
 
 	<!-- Clock in button -->
