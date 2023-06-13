@@ -31,7 +31,7 @@ server.get("/", async (req, res) => {
 	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=98756&start=${start}&end=${end}`)
 	//console.log(employees)
 	// console.log(punches)
-	res.render("index", {employees, punches})
+	res.render("index", {employees, punches, title:"Aanwezigheidsoverzicht"})
 })
 
 server.post("/", async (req, res) => {
@@ -49,11 +49,11 @@ server.post("/", async (req, res) => {
 })
 
 server.get("/inklokken", async (req, res) => {
-	res.render("inklokken")
+	res.render("inklokken", {title:"Inklokken"})
 })
 
 server.get("/uitklokken", async (req, res) => {
-	res.render("uitklokken")
+	res.render("uitklokken", {title:"Uitklokken"})
 })
 
 /* -------------------------------------------------------------------------- */

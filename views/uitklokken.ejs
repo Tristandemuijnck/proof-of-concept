@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Uitklokken</title>
-</head>
-<body>
+<%- include("./partials/head.ejs") %>
 	<header>
 		<!-- Heading text -->
 		<div class="heading-text">
@@ -31,15 +23,7 @@
                 <button class="klok-btn">Uitklokken</button>
 			</div>
 		</section>
-		<nav>
-			<ul>
-				<li><a href=""><img src="/assets/docs.svg" alt="Docs icon" width="20" height="20"></a></li>
-				<li><a href=""><img src="/assets/clock.svg" alt="Clock icon" width="20" height="20"></a></li>
-				<li><a href=""><img src="/assets/check.svg" alt="Check icon" width="20" height="20"></a></li>
-				<li><a href=""><img src="/assets/stopwatch.svg" alt="Stopwatch icon" width="20" height="20"></a></li>
-				<li><a href=""><img src="/assets/burger-menu.svg" alt="Burger menu" width="20" height="20"></a></li>
-			</ul>
-		</nav>
 	</main>
+	<%- include("./modules/MobileNav") %>
 </body>
 </html>

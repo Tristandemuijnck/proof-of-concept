@@ -45,6 +45,13 @@ ul{
 	height: 100dvh;
 }
 
+.alt-content-wrapper{
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 9fr 1fr;
+	height: 100dvh;
+}
+
 /* --------------------------------- Heading -------------------------------- */
 header{
 	background: var(--main-bg);
@@ -232,6 +239,7 @@ main{
 	padding: 1.2rem 0.6rem;
 	gap: 0.6rem;
 	overflow-y: auto;
+	position: relative;
 }
 
 .overzicht-uitgeklokt{
@@ -364,4 +372,49 @@ main{
 	word-break: break-word;
 	text-align: center;
 	color: var(--light-text);
+}
+
+/* Clock in/out button */
+.clock-btn{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 5;
+	position: fixed;
+	bottom: 4rem;
+	right: 1rem;
+	padding: 0.8rem;
+	border-radius: 50%;
+}
+
+.clock-in{
+	background: var(--primary);
+}
+
+.clock-out{
+	background: var(--secondary);
+}
+
+/* -------------------------------- Inklokken ------------------------------- */
+.inklokken{
+	display: flex;
+	flex-direction: column;
+	width: 85%;
+	height: 100%;
+	background: var(--container-bg);
+	margin: 1rem auto;
+	border-radius: var(--container-radius);
+	box-shadow: var(--container-shadow);
+}
+
+.inklokken-container{
+	display: flex;
+	flex-direction: column;
+	width: 95%;
+	max-height: 70dvh;
+	margin: 0 auto;
+	padding: 1.2rem 0.6rem;
+	gap: 0.6rem;
+	overflow-y: auto;
+	position: relative;
 }
