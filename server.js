@@ -1,6 +1,7 @@
 import express from "express"
 import bodyParser from "body-parser"
 import * as dotenv from "dotenv"
+import fetch from "node-fetch"
 
 // Load .env file
 dotenv.config()
