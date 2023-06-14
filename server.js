@@ -22,13 +22,14 @@ server.listen(server.get("port"), () => {
 	console.log(`Application started on http://localhost:${server.get("port")}`)
 })
 
-const date = new Date().toLocaleDateString()
+const date = new Date()
 const start = new Date(date).getFullYear() + "-" + (new Date(date).getMonth() + 1) + "-" + new Date(date).getDate()
 const end = new Date(date).getFullYear() + "-" + (new Date(date).getMonth() + 1) + "-" + (new Date(date).getDate() + 1)
 
 console.log(date)
 console.log(start)
 console.log(end)
+
 
 /* -------------------------------------------------------------------------- */
 /*                                Server Routes                               */
