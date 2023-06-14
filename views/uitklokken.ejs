@@ -11,7 +11,7 @@
 			<h1 class="heading-title">Uitklokken</h1>
 		</div>
 	</header>
-	<main>
+	<main class="alt-main">
 		<!-- Uitklokken  -->
 		<section class="inklokken">
 
@@ -55,7 +55,7 @@
 
 								<!-- All non clocked out employees -->
 								<% const nonClockedOut = employees.filter(em => !clockedOut.some(c => c.employee_id === em.id)) %>
-								<% console.log(nonClockedOut) %>
+								<%# console.log(nonClockedOut) %>
 
 								<!-- Loop through all non clocked out employees -->
 								<% if (nonClockedOut.length > 0) { %>

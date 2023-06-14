@@ -58,7 +58,7 @@ server.post("/inklokken", async (req, res) => {
 		"department_id": departmentId,
 	}
 
-	console.log(postData);
+	// console.log(postData)
 
 	if (!isClockedIn) {
 		postJson("https://api.werktijden.nl/2/timeclock/clockin", postData)
@@ -89,9 +89,9 @@ server.post("/uitklokken", async (req, res) => {
 	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=${departmentId}&start=${start}&end=${end}`)
 	const isClockedOut = punches.data.some(punch => punch.employee_id === employeeId && punch.type === "clock_out")
 
-	console.log(req.body)
-	console.log(isClockedOut)
-	console.log(punches)
+	// console.log(req.body)
+	// console.log(isClockedOut)
+	// console.log(punches)
 
 	const postData = {
 		"employee_id": employeeId,

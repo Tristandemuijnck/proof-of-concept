@@ -3,7 +3,7 @@
 	<% if (punches.data) { %>
 	<!-- Lijst met alle punches met type "clock_in" -->
 	<% const clockedIn = punches.data.filter(pu => pu.type === 'clock_in') %>
-	<% console.log(clockedIn) %>
+	<%# console.log(clockedIn) %>
 
 	<!-- Check if clockedIn > 0 -->
 	<% if (clockedIn.length > 0) { %>
@@ -11,7 +11,7 @@
 
 	<!-- Filter alle medewerkers met een punch instance -->
 	<% const medewerkers = employees.filter(em => em.id === ci.employee_id) %>
-	<% console.log(clockedIn) %>
+	<%# console.log(clockedIn) %>
 
 	<!-- Vind gegevens van een specifieke medewerker -->
 	<% const clockedInMw = medewerkers.find(mw => mw.id === ci.employee_id) %>
