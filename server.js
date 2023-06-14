@@ -22,10 +22,13 @@ server.listen(server.get("port"), () => {
 	console.log(`Application started on http://localhost:${server.get("port")}`)
 })
 
-const date = new Date()
-const start = new Date().toJSON().slice(0, 10)
-const end = new Date(date.setDate(date.getDate() + 1)).toJSON().slice(0, 10)
+const date = new Date().toLocaleDateString()
+const start = new Date(date).getFullYear() + "-" + (new Date(date).getMonth() + 1) + "-" + new Date(date).getDate()
+const end = new Date(date).getFullYear() + "-" + (new Date(date).getMonth() + 1) + "-" + (new Date(date).getDate() + 1)
 
+console.log(date)
+console.log(start)
+console.log(end)
 
 /* -------------------------------------------------------------------------- */
 /*                                Server Routes                               */
@@ -47,10 +50,14 @@ server.post("/inklokken", async (req, res) => {
 	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=${departmentId}&start=${start}&end=${end}`)
 	const isClockedIn = punches.data.some(punch => punch.employee_id === employeeId && punch.type === "clock_in")
 
+	// console.log(punches)
+
 	const postData = {
 		"employee_id": employeeId,
 		"department_id": departmentId,
 	}
+
+	console.log(postData);
 
 	if (!isClockedIn) {
 		postJson("https://api.werktijden.nl/2/timeclock/clockin", postData)
@@ -58,6 +65,8 @@ server.post("/inklokken", async (req, res) => {
 	} else {
 		res.redirect("/")
 	}
+	// postJson("https://api.werktijden.nl/2/timeclock/clockin", postData)
+	// res.redirect("/")
 })
 
 server.get("/inklokken", async (req, res) => {
@@ -94,6 +103,9 @@ server.post("/uitklokken", async (req, res) => {
 	} else {
 		res.redirect("/uitklokken")
 	}
+
+	// postJson("https://api.werktijden.nl/2/timeclock/clockout", postData)
+	// res.redirect("/")
 })
 
 server.get("/uitklokken", async (req, res) => {
