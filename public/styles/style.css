@@ -385,6 +385,7 @@ main{
 	right: 1rem;
 	padding: 0.8rem;
 	border-radius: 50%;
+	box-shadow: var(--container-shadow);
 }
 
 .clock-in{
@@ -417,4 +418,46 @@ main{
 	gap: 0.6rem;
 	overflow-y: auto;
 	position: relative;
+}
+
+.klok-tijd{
+	font-size: 2rem;
+	position: relative;
+	display: inline-block;
+	margin-right: auto;
+	width: auto;
+	margin-bottom: 1.5rem;
+}
+
+.klok-tijd::after{
+	content: "";
+	position: absolute;
+	bottom: -0.5rem;
+	right: 0;
+	width: 100%;
+	height: 1px;
+	background: var(--primary);
+}
+
+.mw-afdeling-title{
+	font-size: 0.8rem;
+	color: var(--light-text);
+}
+
+.mw-afdeling{
+	font-size: 1.1rem;
+}
+
+.inklok-card{
+	border-bottom: none;
+}
+
+.inklok-card .card-content::before{
+	content: "";
+	position: absolute;
+	bottom: -0.5rem;
+	left: 0;
+	width: 1px;
+	height: 100%;
+	background: var(--primary);
 }
