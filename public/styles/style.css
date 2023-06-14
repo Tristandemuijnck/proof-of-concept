@@ -101,6 +101,7 @@ header{
 	position: relative;
 	transition: all 0.3s ease;
 	display: block;
+	box-shadow: var(--container-shadow);
 }
 
 .color-switch > label.switch-inner:before{
@@ -191,6 +192,11 @@ header{
 	justify-content: center;
 	width: 100%;
 	padding: 0.5rem;
+	transition: 150ms ease-in-out;
+}
+
+.mobile-nav ul li a:hover{
+	transform: scale(1.1);
 }
 
 .mobile-nav ul li::after{
@@ -388,6 +394,11 @@ main{
 	padding: 0.8rem;
 	border-radius: 50%;
 	box-shadow: var(--container-shadow);
+	transition: 150ms ease-in-out;
+}
+
+.clock-btn:hover{
+	transform: scale(1.1);
 }
 
 .clock-in{
@@ -503,6 +514,12 @@ main{
 	padding: 0.6rem 0;
 	color: var(--primary-text);
 	font-size: 1rem;
+	transition: 150ms ease-in-out;
+	cursor: pointer;
+}
+
+.klok-btn:hover{
+	transform: scale(1.05);
 }
 
 .bg-secondary{
