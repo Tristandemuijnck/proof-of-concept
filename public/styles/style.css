@@ -229,7 +229,7 @@ main{
 	display: flex;
 	flex-direction: column;
 	width: 85%;
-	max-height: 60dvh;
+	height: 100%;
 	background: var(--container-bg);
 	margin: 1rem auto;
 	border-radius: var(--container-radius);
