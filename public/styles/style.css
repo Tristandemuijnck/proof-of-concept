@@ -399,6 +399,17 @@ main{
 }
 
 /* -------------------------------- Inklokken ------------------------------- */
+.logo-wrapper{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.logo-wrapper img{
+	width: 8rem;
+	height: auto;
+}
+
 .inklokken{
 	display: flex;
 	flex-direction: column;
@@ -492,4 +503,8 @@ main{
 	padding: 0.6rem 0;
 	color: var(--primary-text);
 	font-size: 1rem;
+}
+
+.bg-secondary{
+	background: var(--secondary);
 }

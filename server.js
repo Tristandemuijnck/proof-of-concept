@@ -1,4 +1,5 @@
 import express from "express"
+import bodyParser from "body-parser"
 import * as dotenv from "dotenv"
 
 // Load .env file
@@ -13,6 +14,8 @@ server.set("view engine", "ejs")
 server.set("views", "./views")
 server.set("port", process.env.PORT || 8000)
 server.use(express.static('public'))
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({extended: true}))
 
 server.listen(server.get("port"), () => {
 	console.log(`Application started on http://localhost:${server.get("port")}`)
@@ -34,26 +37,48 @@ server.get("/", async (req, res) => {
 	res.render("index", {employees, punches, title:"Aanwezigheidsoverzicht"})
 })
 
-server.post("/", async (req, res) => {
+server.post("/inklokken", async (req, res) => {
+	console.log(req.body)
+	const departmentId = Number(req.body.department)
+	const employeeId = Number(req.body.employee)
+
 	const postData = {
-		"employee_id": 368786,
-		"department_id": 98756,
+		"employee_id": employeeId,
+		"department_id": departmentId,
 	}
 
-	postJson("https://api.werktijden.nl/2/timeclock/clockin", postData).then((data) => {
-		if (data.status == 200) {
-			res.redirect("/inklokken")
-			console.log("Status 200: Done!")
-		}
-	})
+	postJson("https://api.werktijden.nl/2/timeclock/clockin", postData)
+
+	res.redirect("/")
 })
 
 server.get("/inklokken", async (req, res) => {
-	res.render("inklokken", {title:"Inklokken"})
+	const departments = await dataFetch("https://api.werktijden.nl/2/departments")
+	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
+	// console.log(employees)
+	res.render("inklokken", {title:"Inklokken", departments, employees})
+})
+
+server.post("/uitklokken", async (req, res) => {
+	// console.log(req.body)
+	const departmentId = Number(req.body.department)
+	const employeeId = Number(req.body.employee)
+
+	const postData = {
+		"employee_id": employeeId,
+		"department_id": departmentId,
+	}
+
+	postJson("https://api.werktijden.nl/2/timeclock/clockout", postData)
+
+	res.redirect("/")
 })
 
 server.get("/uitklokken", async (req, res) => {
-	res.render("uitklokken", {title:"Uitklokken"})
+	const departments = await dataFetch("https://api.werktijden.nl/2/departments")
+	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
+
+	res.render("uitklokken", {title:"Uitklokken", departments, employees})
 })
 
 /* -------------------------------------------------------------------------- */
@@ -75,10 +100,11 @@ async function dataFetch(url) {
 async function postJson(url, body) {
 	console.log(2, JSON.stringify(body));
 	return await fetch(url, {
-			method: "post",
+			method: "POST",
 			body: JSON.stringify(body),
 			headers: {
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${process.env.API_KEY}`,
 			},
 		})
 		.then((response) => response.json())

@@ -1,6 +1,11 @@
 <%- include("./partials/head.ejs") %>
 <div class="alt-content-wrapper">
 	<header>
+		<!-- Logo -->
+		<div class="logo-wrapper">
+			<img src="./assets/logo.svg" alt="Logo" width="188" height="32">
+		</div>
+
 		<!-- Heading text -->
 		<div class="heading-text">
 			<h1 class="heading-title">Inklokken</h1>
@@ -29,10 +34,27 @@
 						</div>
 						<div class="card-content">
 							<p class="mw-afdeling-title">Afdeling</p>
-							<p class="mw-afdeling">TristanHVA</p>
+							<select name="department" id="department" class="mw-afdeling">
+								<% departments.forEach(ds => { %>
+									<option value="<%- ds.id %>"><%- ds.name %></option>
+								<% }) %>
+							</select>
 						</div>
 					</div>
-					<button class="klok-btn">Inklokken</button>
+					<div class="card inklok-card">
+						<div class="img-wrapper">
+							<img src="./assets/employee.svg" alt="" width="25" height="30">
+						</div>
+						<div class="card-content">
+							<p class="mw-afdeling-title">Medewerker</p>
+							<select name="employee" id="employee" class="mw-afdeling">
+								<% employees.forEach(es => { %>
+									<option value="<%- es.id %>"><%- es.name %></option>
+								<% }) %>
+							</select>
+						</div>
+					</div>
+					<input type="submit" class="klok-btn" value="Inklokken">
 				</form>
 			</div>
 		</section>
