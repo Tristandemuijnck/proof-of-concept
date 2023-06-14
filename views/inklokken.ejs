@@ -18,13 +18,15 @@
 
 			<!-- Inklokken container -->
 			<div class="inklokken-container">
-				<form action="/inklokken" method="post" name="inklokForm" id="inklokForm">
+				<form action="/inklokken" method="post" name="inklokForm" id="inklokForm" class="inklok-form">
 					<!-- Inklok tijd -->
 					<p class="klok-tijd"><%- time %></p>
 
 					<!-- Individuele medewerker -->
 					<div class="card inklok-card">
-						<img src="" alt="" width="40" height="40">
+						<div class="img-wrapper">
+							<img src="./assets/department.svg" alt="" width="25" height="30">
+						</div>
 						<div class="card-content">
 							<p class="mw-afdeling-title">Afdeling</p>
 							<p class="mw-afdeling">TristanHVA</p>
@@ -32,16 +34,6 @@
 					</div>
 					<button class="klok-btn">Inklokken</button>
 				</form>
-
-				<!-- Individuele medewerker -->
-				<!-- <div class="card">
-					<img src="" alt="" width="40" height="40">
-					<div class="card-content">
-						<p class="mw-afdeling-title">Afdeling</p>
-						<p class="mw-afdeling">TristanHVA</p>
-					</div>
-				</div>
-				<button class="klok-btn">Inklokken</button> -->
 			</div>
 		</section>
 	</main>
