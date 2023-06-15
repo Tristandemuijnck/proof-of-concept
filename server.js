@@ -2,6 +2,8 @@ import express from "express"
 import bodyParser from "body-parser"
 import * as dotenv from "dotenv"
 import fetch from "node-fetch"
+import { formatISO, add } from "date-fns"
+import { utcToZonedTime } from "date-fns-tz"
 
 // Load .env file
 dotenv.config()
@@ -22,15 +24,16 @@ server.listen(server.get("port"), () => {
 	console.log(`Application started on http://localhost:${server.get("port")}`)
 })
 
-// TODO Date rework - date-fns
+/* ------------------------------- Date variables ------------------------------ */
 const date = new Date()
-const start = new Date(date).getFullYear() + "-" + (new Date(date).getMonth() + 1) + "-" + new Date(date).getDate()
-const end = new Date(date).getFullYear() + "-" + (new Date(date).getMonth() + 1) + "-" + (new Date(date).getDate() + 1)
+const timeZone = 'Europe/Amsterdam'
+const zonedDate = utcToZonedTime(date, timeZone)
+const start = formatISO(new Date(zonedDate), { representation: 'date' })
+const end = formatISO(add(new Date(zonedDate), { days: 1 }), { representation: 'date' })
 
 console.log(date)
 console.log(start)
 console.log(end)
-
 
 /* -------------------------------------------------------------------------- */
 /*                                Server Routes                               */
