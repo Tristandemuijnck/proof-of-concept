@@ -22,6 +22,7 @@ server.listen(server.get("port"), () => {
 	console.log(`Application started on http://localhost:${server.get("port")}`)
 })
 
+// TODO Date rework - date-fns
 const date = new Date()
 const start = new Date(date).getFullYear() + "-" + (new Date(date).getMonth() + 1) + "-" + new Date(date).getDate()
 const end = new Date(date).getFullYear() + "-" + (new Date(date).getMonth() + 1) + "-" + (new Date(date).getDate() + 1)
@@ -43,78 +44,43 @@ server.get("/", async (req, res) => {
 })
 
 server.post("/inklokken", async (req, res) => {
-	// console.log(req.body)
 	const departmentId = Number(req.body.department)
 	const employeeId = Number(req.body.employee)
-
-	// Check if employee is already clocked in
-	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=${departmentId}&start=${start}&end=${end}`)
-	const isClockedIn = punches.data.some(punch => punch.employee_id === employeeId && punch.type === "clock_in")
-
-	// console.log(punches)
 
 	const postData = {
 		"employee_id": employeeId,
 		"department_id": departmentId,
 	}
 
-	// console.log(postData)
-
-	if (!isClockedIn) {
-		postJson("https://api.werktijden.nl/2/timeclock/clockin", postData)
-		res.redirect("/")
-	} else {
-		res.redirect("/")
-	}
-	// postJson("https://api.werktijden.nl/2/timeclock/clockin", postData)
-	// res.redirect("/")
+	postJson("https://api.werktijden.nl/2/timeclock/clockin", postData)
+	res.redirect("/")
 })
 
 server.get("/inklokken", async (req, res) => {
 	const departments = await dataFetch("https://api.werktijden.nl/2/departments")
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
-	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=98756&start=${start}&end=${end}`)
-
-
 	// console.log(employees)
-	res.render("inklokken", {title:"Inklokken", departments, employees, punches})
+	res.render("inklokken", {title:"Inklokken", departments, employees})
 })
 
 server.post("/uitklokken", async (req, res) => {
-	// console.log(req.body)
 	const departmentId = Number(req.body.department)
 	const employeeId = Number(req.body.employee)
-
-	// Check if employee is already clocked out
-	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=${departmentId}&start=${start}&end=${end}`)
-	const isClockedOut = punches.data.some(punch => punch.employee_id === employeeId && punch.type === "clock_out")
-
-	// console.log(req.body)
-	// console.log(isClockedOut)
-	// console.log(punches)
 
 	const postData = {
 		"employee_id": employeeId,
 		"department_id": departmentId,
 	}
 
-	if (!isClockedOut) {
-		postJson("https://api.werktijden.nl/2/timeclock/clockout", postData)
-		res.redirect("/")
-	} else {
-		res.redirect("/uitklokken")
-	}
-
-	// postJson("https://api.werktijden.nl/2/timeclock/clockout", postData)
-	// res.redirect("/")
+	postJson("https://api.werktijden.nl/2/timeclock/clockout", postData)
+	res.redirect("/")
 })
 
 server.get("/uitklokken", async (req, res) => {
 	const departments = await dataFetch("https://api.werktijden.nl/2/departments")
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
-	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=98756&start=${start}&end=${end}`)
 
-	res.render("uitklokken", {title:"Uitklokken", departments, employees, punches})
+	res.render("uitklokken", {title:"Uitklokken", departments, employees})
 })
 
 /* -------------------------------------------------------------------------- */

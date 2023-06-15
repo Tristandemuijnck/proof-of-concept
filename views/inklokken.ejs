@@ -15,13 +15,12 @@
 		<!-- Inklokken  -->
 		<section class="inklokken">
 
+			<!-- TODO Date rework - date-fns -->
 			<!-- Actuele tijd -->
 			<% let time = new Date() %>
 			<% const timeHours = time.getHours() %>
 			<% const timeMinutes = (time.getMinutes() < 10 ? '0':'') + time.getMinutes() %>
 			<% time = timeHours + ':' + timeMinutes %>
-
-			<% let showSubmit %>
 
 			<!-- Inklokken container -->
 			<div class="inklokken-container">
@@ -50,29 +49,13 @@
 						<div class="card-content">
 							<p class="mw-afdeling-title">Medewerker</p>
 							<select name="employee" id="employee" class="mw-afdeling employee-input">
-								<!-- All employees with clock_in type -->
-								<% const clockedIn = punches.data.filter(pu => pu.type === 'clock_in') %>
-
-								<!-- All non clocked in employees -->
-								<% const nonClockedIn = employees.filter(em => !clockedIn.some(c => c.employee_id === em.id)) %>
-
-								<!-- Loop through all non clocked in employees -->
-								<% if (nonClockedIn.length > 0) { %>
-									<% nonClockedIn.forEach(nc => { %>
-										<% showSubmit = true %>
-										<option class="employee-option" value="<%- nc.id %>"><%- nc.name %></option>
-									<% }) %>
-								<% } else { %>
-									<option value="0">Alle medewerkers ingeklokt</option>
-								<% } %>
+								<% employees.forEach(es => { %>
+									<option value="<%- es.id %>"><%- es.name %></option>
+								<% }) %>
 							</select>
 						</div>
 					</div>
-					<% if (showSubmit) { %>
-						<input type="submit" class="klok-btn" value="Inklokken">
-					<% } else { %>
-						<input type="submit" class="klok-btn-disabled" value="Inklokken" disabled>
-					<% } %>
+					<input type="submit" class="klok-btn" value="Inklokken">
 				</form>
 			</div>
 		</section>

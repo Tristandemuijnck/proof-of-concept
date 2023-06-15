@@ -7,47 +7,48 @@
 
 	<!-- Check if clockedIn > 0 -->
 	<% if (clockedIn.length > 0) { %>
-	<% clockedIn.forEach(ci => { %>
+		<% clockedIn.forEach(ci => { %>
 
-	<!-- Filter alle medewerkers met een punch instance -->
-	<% const medewerkers = employees.filter(em => em.id === ci.employee_id) %>
-	<%# console.log(clockedIn) %>
+		<!-- Filter alle medewerkers met een punch instance -->
+		<% const medewerkers = employees.filter(em => em.id === ci.employee_id) %>
+		<%# console.log(clockedIn) %>
 
-	<!-- Vind gegevens van een specifieke medewerker -->
-	<% const clockedInMw = medewerkers.find(mw => mw.id === ci.employee_id) %>
+		<!-- Vind gegevens van een specifieke medewerker -->
+		<% const clockedInMw = medewerkers.find(mw => mw.id === ci.employee_id) %>
 
-	<!-- Tijd van inklokken -->
-	<% const clockInDate = new Date(ci.timestamp) %>
-	<% const clockedInHours = clockInDate.getHours() %>
-	<% const clockedInMinutes = (clockInDate.getMinutes() < 10 ? '0':'') + clockInDate.getMinutes() %>
-	<% const clockedInTime = clockedInHours + ':' + clockedInMinutes %>
+		<!-- TODO Use date library date-fns -->
+		<!-- Tijd van inklokken -->
+		<% const clockInDate = new Date(ci.timestamp) %>
+		<% const clockedInHours = clockInDate.getHours() %>
+		<% const clockedInMinutes = (clockInDate.getMinutes() < 10 ? '0':'') + clockInDate.getMinutes() %>
+		<% const clockedInTime = clockedInHours + ':' + clockedInMinutes %>
 
-	<!-- Tijdsverschil tussen inklokken en nu -->
-	<% const timeNow = new Date() %>
-	<% const timeDiff = (timeNow - clockInDate) %>
-	<%# console.log(timeDiff) %>
-	<% const diffMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)) %>
-	<% const diffHours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) %>
-	<% let timePast %>
-	<% if (diffHours > 0) { %>
-	<% timePast = `ongeveer ${diffHours} uur geleden` %>
-	<% } else{ %>
-	<% timePast = `${diffMinutes} minuten geleden` %>
-	<% } %>
+		<!-- Tijdsverschil tussen inklokken en nu -->
+		<% const timeNow = new Date() %>
+		<% const timeDiff = (timeNow - clockInDate) %>
+		<%# console.log(timeDiff) %>
+		<% const diffMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)) %>
+		<% const diffHours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) %>
+		<% let timePast %>
+		<% if (diffHours > 0) { %>
+		<% timePast = `ongeveer ${diffHours} uur geleden` %>
+		<% } else{ %>
+		<% timePast = `${diffMinutes} minuten geleden` %>
+		<% } %>
 
-	<div class="card">
-		<picture class="avatar-wrap">
-			<!-- <source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp"> -->
-			<img class="avatar-img" src="<%- clockedInMw.avatar %>" alt="Avatar van <%- clockedInMw.name %>" width="40"
-				height="40">
-		</picture>
+		<div class="card">
+			<picture class="avatar-wrap">
+				<!-- <source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp"> -->
+				<img class="avatar-img" src="<%- clockedInMw.avatar %>" alt="Avatar van <%- clockedInMw.name %>" width="40"
+					height="40">
+			</picture>
 
-		<div class="card-content">
-			<h2 class="mw-name"><%- clockedInMw.name %></h2>
-			<p class="start-time"><%- clockedInTime %> - <%- timePast %></p>
+			<div class="card-content">
+				<h2 class="mw-name"><%- clockedInMw.name %></h2>
+				<p class="start-time"><%- clockedInTime %> - <%- timePast %></p>
+			</div>
 		</div>
-	</div>
-	<% }) %>
+		<% }) %>
 	<% } else { %>
 		<div class="empty-card">
 			<picture class="svg-wrap">
