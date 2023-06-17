@@ -50,10 +50,13 @@ server.get("/", async (req, res) => {
 	// console.log(employees)
 	// console.log(punches.data)
 
-	let mwArray = []
+	let mwArrayIn = []
+	let mwArrayOut = []
 	let timePastClockIn
+	let timePastClockOut
 
 	const clockedIn = punches.data.filter(pu => pu.type === 'clock_in')
+	const clockedOut = punches.data.filter(pu => pu.type === 'clock_out')
 	// console.log(clockedIn)
 
 	clockedIn.forEach(ci => {
@@ -77,13 +80,38 @@ server.get("/", async (req, res) => {
 
 		clockedInMw.ClockInTime = clockInTimeFormatted
 		clockedInMw.TimePastClockIn = timePastClockIn
-		mwArray = [...mwArray, clockedInMw]
+		mwArrayIn = [...mwArrayIn, clockedInMw]
+	})
+
+	clockedOut.forEach(co => {
+		// Get all employees that are clocked out
+		const medewerkers = employees.filter(em => em.id === co.employee_id)
+		const clockedOutMw = medewerkers.find(mw => mw.id === co.employee_id)
+
+		// Get the clocked out time
+		const clockOutTime = getClockedInTime(co)
+		const clockOutTimeFormatted = format(utcToZonedTime(new Date(co.timestamp), timeZone), 'HH:mm')
+
+		// Get the time past since clocked out
+		const diffInMinutes = differenceInMinutes(utcToZonedTime(new Date(), timeZone), utcToZonedTime(new Date(co.timestamp), timeZone))
+		const diffInHours = differenceInHours(utcToZonedTime(new Date(), timeZone), utcToZonedTime(new Date(co.timestamp), timeZone))
+
+		if(diffInHours > 0){
+			timePastClockOut = `ongeveer ${diffInHours} uur geleden`
+		}
+		else {
+			timePastClockOut = `${diffInMinutes} minuten geleden`
+		}
+
+		clockedOutMw.ClockOutTime = clockOutTimeFormatted
+		clockedOutMw.TimePastClockOut = timePastClockOut
+		mwArrayOut = [...mwArrayOut, clockedOutMw]
 	})
 
 
 	// console.log(mwArray)
 
-	res.render("index", {employees, punches, mwArray, title:"Aanwezigheidsoverzicht"})
+	res.render("index", {employees, punches, mwArrayIn, mwArrayOut, title:"Aanwezigheidsoverzicht"})
 })
 
 server.post("/inklokken", async (req, res) => {
