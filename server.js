@@ -2,7 +2,7 @@ import express from "express"
 import bodyParser from "body-parser"
 import * as dotenv from "dotenv"
 import fetch from "node-fetch"
-import { formatISO, add } from "date-fns"
+import { format, formatISO, add, differenceInMinutes, differenceInHours } from "date-fns"
 import { utcToZonedTime } from "date-fns-tz"
 
 // Load .env file
@@ -24,17 +24,20 @@ server.listen(server.get("port"), () => {
 	console.log(`Application started on http://localhost:${server.get("port")}`)
 })
 
-/* ------------------------------- Date variables ------------------------------ */
+/* ----------------------- Date variables & functions ----------------------- */
 const date = new Date()
 const timeZone = 'Europe/Amsterdam'
 const zonedDate = utcToZonedTime(date, timeZone)
 const start = formatISO(new Date(zonedDate), { representation: 'date' })
 const end = formatISO(add(new Date(zonedDate), { days: 1 }), { representation: 'date' })
 
+// console.log(start, "Test start time")
+// console.log(end, "Test end time")
+
 function getClockedInTime(ci){
 	const clockInDate = utcToZonedTime(new Date(ci.timestamp), timeZone)
 	const clockedInTime = formatISO(new Date(clockInDate), { representation: 'time' })
-	console.log(clockedInTime)
+	// const clockedInHours = format(new Date(clockInDate), 'HH:mm')
 	return clockedInTime
 }
 
@@ -45,23 +48,42 @@ server.get("/", async (req, res) => {
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
 	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=98756&start=${start}&end=${end}`)
 	// console.log(employees)
-	// console.log(punches)
+	// console.log(punches.data)
 
-	// Check if punches are available
-	if (punches.data) {
-		// Lijst met alle punches met type "clock_in"
-		const clockedIn = punches.data.filter(pu => pu.type === "clock_in")
-		if (clockedIn.length > 0) {
-			clockedIn.forEach(ci => {
-				const medewerkers = employees.filter(em => em.id === ci.employee_id)
-				const clockedInMw = medewerkers.find(mw => mw.id === ci.employee_id)
+	let mwArray = []
+	let timePastClockIn
 
-				// Tijd van inklokken
-			})
+	const clockedIn = punches.data.filter(pu => pu.type === 'clock_in')
+	// console.log(clockedIn)
+
+	clockedIn.forEach(ci => {
+		// Get all employees that are clocked in
+		const medewerkers = employees.filter(em => em.id === ci.employee_id)
+		const clockedInMw = medewerkers.find(mw => mw.id === ci.employee_id)
+
+		// Get the clocked in time
+		const clockInTime = getClockedInTime(ci)
+		const clockInTimeFormatted = format(utcToZonedTime(new Date(ci.timestamp), timeZone), 'HH:mm')
+
+		// Get the time past since clocked in
+		const diffInMinutes = differenceInMinutes(utcToZonedTime(new Date(), timeZone), utcToZonedTime(new Date(ci.timestamp), timeZone))
+		const diffInHours = differenceInHours(utcToZonedTime(new Date(), timeZone), utcToZonedTime(new Date(ci.timestamp), timeZone))
+
+		if(diffInHours > 0){
+			timePastClockIn = `ongeveer ${diffInHours} uur geleden`
+		} else {
+			timePastClockIn = `${diffInMinutes} minuten geleden`
 		}
-	}
 
-	res.render("index", {employees, punches, title:"Aanwezigheidsoverzicht"})
+		clockedInMw.ClockInTime = clockInTimeFormatted
+		clockedInMw.TimePastClockIn = timePastClockIn
+		mwArray = [...mwArray, clockedInMw]
+	})
+
+
+	// console.log(mwArray)
+
+	res.render("index", {employees, punches, mwArray, title:"Aanwezigheidsoverzicht"})
 })
 
 server.post("/inklokken", async (req, res) => {

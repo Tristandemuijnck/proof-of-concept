@@ -1,65 +1,22 @@
 <div class="overzicht-ingeklokt switch-view" id="overzicht-ingeklokt">
-	<!-- Check if punches available -->
-	<% if (punches.data) { %>
-	<!-- Lijst met alle punches met type "clock_in" -->
-	<% const clockedIn = punches.data.filter(pu => pu.type === 'clock_in') %>
-	<%# console.log(clockedIn) %>
 
-	<!-- Check if clockedIn > 0 -->
-	<% if (clockedIn.length > 0) { %>
-		<% clockedIn.forEach(ci => { %>
+	<%# console.log(mwArray) %>
 
-		<!-- Filter alle medewerkers met een punch instance -->
-		<% const medewerkers = employees.filter(em => em.id === ci.employee_id) %>
-		<%# console.log(clockedIn) %>
+	<% if (mwArray.length > 0) { %>
+		<% mwArray.forEach(mw => { %>
+			<div class="card">
+				<picture class="avatar-wrap">
+					<!-- <source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp"> -->
+					<img class="avatar-img" src="<%- mw.avatar %>" alt="Avatar van <%- mw.name %>" width="40"
+						height="40">
+				</picture>
 
-		<!-- Vind gegevens van een specifieke medewerker -->
-		<% const clockedInMw = medewerkers.find(mw => mw.id === ci.employee_id) %>
-
-		<!-- TODO Use date library date-fns -->
-		<!-- Tijd van inklokken -->
-		<% const clockInDate = new Date(ci.timestamp) %>
-		<% const clockedInHours = clockInDate.getHours() %>
-		<% const clockedInMinutes = (clockInDate.getMinutes() < 10 ? '0':'') + clockInDate.getMinutes() %>
-		<% const clockedInTime = clockedInHours + ':' + clockedInMinutes %>
-
-		<!-- Tijdsverschil tussen inklokken en nu -->
-		<% const timeNow = new Date() %>
-		<% const timeDiff = (timeNow - clockInDate) %>
-		<%# console.log(timeDiff) %>
-		<% const diffMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60)) %>
-		<% const diffHours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) %>
-		<% let timePast %>
-		<% if (diffHours > 0) { %>
-		<% timePast = `ongeveer ${diffHours} uur geleden` %>
-		<% } else{ %>
-		<% timePast = `${diffMinutes} minuten geleden` %>
-		<% } %>
-
-		<div class="card">
-			<picture class="avatar-wrap">
-				<!-- <source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp"> -->
-				<img class="avatar-img" src="<%- clockedInMw.avatar %>" alt="Avatar van <%- clockedInMw.name %>" width="40"
-					height="40">
-			</picture>
-
-			<div class="card-content">
-				<h2 class="mw-name"><%- clockedInMw.name %></h2>
-				<p class="start-time"><%- clockedInTime %> - <%- timePast %></p>
+				<div class="card-content">
+					<h2 class="mw-name"><%- mw.name %></h2>
+					<p class="start-time"><%- mw.ClockInTime %> - <%- mw.TimePastClockIn %></p>
+				</div>
 			</div>
-		</div>
 		<% }) %>
-	<% } else { %>
-		<div class="empty-card">
-			<picture class="svg-wrap">
-				<img class="svg-img" src="/assets/employees.svg" alt="Employees icon" width="40" height="40">
-			</picture>
-
-			<div class="empty-card-content">
-				<h2 class="empty-text">Er zijn geen medewerkers ingeklokt</h2>
-			</div>
-		</div>
-	<% } %>
 	<% } else { %>
 		<div class="empty-card">
 			<picture class="svg-wrap">
