@@ -31,9 +31,12 @@ const zonedDate = utcToZonedTime(date, timeZone)
 const start = formatISO(new Date(zonedDate), { representation: 'date' })
 const end = formatISO(add(new Date(zonedDate), { days: 1 }), { representation: 'date' })
 
-console.log(date)
-console.log(start)
-console.log(end)
+function getClockedInTime(ci){
+	const clockInDate = utcToZonedTime(new Date(ci.timestamp), timeZone)
+	const clockedInTime = formatISO(new Date(clockInDate), { representation: 'time' })
+	console.log(clockedInTime)
+	return clockedInTime
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                Server Routes                               */
@@ -43,6 +46,21 @@ server.get("/", async (req, res) => {
 	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=98756&start=${start}&end=${end}`)
 	// console.log(employees)
 	// console.log(punches)
+
+	// Check if punches are available
+	if (punches.data) {
+		// Lijst met alle punches met type "clock_in"
+		const clockedIn = punches.data.filter(pu => pu.type === "clock_in")
+		if (clockedIn.length > 0) {
+			clockedIn.forEach(ci => {
+				const medewerkers = employees.filter(em => em.id === ci.employee_id)
+				const clockedInMw = medewerkers.find(mw => mw.id === ci.employee_id)
+
+				// Tijd van inklokken
+			})
+		}
+	}
+
 	res.render("index", {employees, punches, title:"Aanwezigheidsoverzicht"})
 })
 
@@ -62,7 +80,7 @@ server.post("/inklokken", async (req, res) => {
 server.get("/inklokken", async (req, res) => {
 	const departments = await dataFetch("https://api.werktijden.nl/2/departments")
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
-	// console.log(employees)
+
 	res.render("inklokken", {title:"Inklokken", departments, employees})
 })
 
