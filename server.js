@@ -108,9 +108,6 @@ server.get("/", async (req, res) => {
 		mwArrayOut = [...mwArrayOut, clockedOutMw]
 	})
 
-
-	// console.log(mwArray)
-
 	res.render("index", {employees, punches, mwArrayIn, mwArrayOut, title:"Aanwezigheidsoverzicht"})
 })
 
@@ -131,7 +128,9 @@ server.get("/inklokken", async (req, res) => {
 	const departments = await dataFetch("https://api.werktijden.nl/2/departments")
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
 
-	res.render("inklokken", {title:"Inklokken", departments, employees})
+	const currentTime = format(utcToZonedTime(new Date(), timeZone), 'HH:mm')
+
+	res.render("inklokken", {title:"Inklokken", departments, employees, currentTime})
 })
 
 server.post("/uitklokken", async (req, res) => {
@@ -151,7 +150,9 @@ server.get("/uitklokken", async (req, res) => {
 	const departments = await dataFetch("https://api.werktijden.nl/2/departments")
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
 
-	res.render("uitklokken", {title:"Uitklokken", departments, employees})
+	const currentTime = format(utcToZonedTime(new Date(), timeZone), 'HH:mm')
+
+	res.render("uitklokken", {title:"Uitklokken", departments, employees, currentTime})
 })
 
 /* -------------------------------------------------------------------------- */

@@ -14,19 +14,11 @@
 	<main class="alt-main">
 		<!-- Uitklokken  -->
 		<section class="inklokken">
-
-			<!-- TODO Date rework - date-fns -->
-			<!-- Actuele tijd -->
-			<% let time = new Date() %>
-			<% const timeHours = time.getHours() %>
-			<% const timeMinutes = (time.getMinutes() < 10 ? '0':'') + time.getMinutes() %>
-			<% time = timeHours + ':' + timeMinutes %>
-
 			<!-- Uitklokken container -->
 			<div class="inklokken-container">
 				<form action="/uitklokken" method="post" name="uitklokForm" id="uitklokForm" class="inklok-form">
 					<!-- Uitklok tijd -->
-					<p class="klok-tijd"><%- time %></p>
+					<p class="klok-tijd"><%- currentTime %></p>
 
 					<!-- Individuele medewerker -->
 					<div class="card inklok-card">
