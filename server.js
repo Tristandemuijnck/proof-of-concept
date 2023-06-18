@@ -48,7 +48,7 @@ server.get("/", async (req, res) => {
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
 	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=98756&start=${start}&end=${end}`)
 	// console.log(employees)
-	console.log(punches.data)
+	// console.log(punches.data)
 
 	let mwArrayIn = []
 	let mwArrayOut = []
