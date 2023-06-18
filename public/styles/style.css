@@ -155,6 +155,11 @@ header{
 	left: 0;
 }
 
+/* ------------------------------ Desktop menu ------------------------------ */
+.dt-nav-outer{
+    display: none;
+}
+
 /* ------------------------------- Mobile menu ------------------------------ */
 .mobile-nav{
 	position: fixed;
@@ -345,6 +350,10 @@ main{
 	display: flex;
 	flex-direction: row-reverse;
 	gap: 0.3rem;
+}
+
+.reverse-time span{
+    text-align: right;
 }
 
 /* Empty state */
@@ -557,4 +566,161 @@ main{
 
 .bg-secondary{
 	background: var(--secondary);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             Tablet size (768px)                            */
+/* -------------------------------------------------------------------------- */
+
+@media (min-width: 48rem) {
+    /* ------------------------------- Desktop nav ------------------------------ */
+    .dt-nav-outer{
+        display: flex;
+        width: 100%;
+        background: var(--primary);
+    }
+
+    .dt-wrapper{
+        display: flex;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0.4rem 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dt-logo{
+        height: 1.8rem;
+        width: auto;
+    }
+
+    .dt-nav{
+        display: flex;
+        align-items: center;
+    }
+
+    .dt-nav ul{
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .dt-nav ul li{
+        display: flex;
+        align-items: center;
+    }
+
+    .dt-nav ul li a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.6rem 0.3rem;
+        font-size: 0.9rem;
+        color: var(--primary-text);
+        text-decoration: none;
+    }
+
+    .dt-nav ul li a img{
+        height: 0.9rem;
+        width: auto;
+        margin-right: 0.3rem;
+    }
+
+    /* ------------------------------- Mobile nav ------------------------------- */
+    .mobile-nav{
+        display: none;
+    }
+
+    /* ------------------------------- Index page ------------------------------- */
+    .content-wrapper{
+        display: flex;
+        flex-direction: column;
+        height: initial;
+        margin-top: 1rem;
+    }
+
+    .content-wrapper header{
+        flex-direction: row;
+        background: var(--container-bg);
+        width: 85%;
+        margin: 0 auto;
+        border-radius: var(--container-radius);
+        border: solid 1px var(--light-border);
+        justify-content: space-between;
+        padding: 1rem 1.5rem
+    }
+
+    .logo-wrapper{
+        display: none;
+    }
+
+    .heading-text{
+        align-items: initial;
+        gap: 0.5rem;
+    }
+
+    .heading-title{
+        font-size: 1.3rem;
+        position: relative;
+    }
+
+    .heading-title::after{
+        content: "";
+        position: absolute;
+        bottom: -0.3rem;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--primary);
+    }
+
+    .heading-subtitle{
+        font-size: 1.1rem;
+    }
+
+    .content-wrapper main{
+        height: 80dvh;
+    }
+
+    /* --------------------- Overzicht ingeklokt/uitgeklokt --------------------- */
+    .overzicht-ingeklokt, .overzicht-uitgeklokt{
+        flex-flow: row wrap;
+    }
+
+    .card{
+        width: 47%;
+    }
+
+    .clock-btn{
+        right: 2rem;
+        bottom: 2rem;
+    }
+
+    /* -------------------------- Inklokken/Uitklokken -------------------------- */
+    .alt-content-wrapper{
+        display: flex;
+        flex-direction: column;
+        height: initial;
+        margin-top: 1rem;
+    }
+
+    .alt-content-wrapper header{
+        flex-direction: row;
+        background: var(--container-bg);
+        width: 85%;
+        margin: 0 auto;
+        border-radius: var(--container-radius);
+        border: solid 1px var(--light-border);
+        justify-content: space-between;
+        padding: 1rem 1.5rem
+    }
+
+    .klok-btn{
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .employee-input{
+        max-width: unset;
+    }
 }

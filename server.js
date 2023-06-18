@@ -48,7 +48,7 @@ server.get("/", async (req, res) => {
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
 	const punches = await dataFetch(`https://api.werktijden.nl/2/timeclock/punches?departmentId=98756&start=${start}&end=${end}`)
 	// console.log(employees)
-	// console.log(punches.data)
+	console.log(punches.data)
 
 	let mwArrayIn = []
 	let mwArrayOut = []
@@ -57,12 +57,13 @@ server.get("/", async (req, res) => {
 
 	const clockedIn = punches.data.filter(pu => pu.type === 'clock_in')
 	const clockedOut = punches.data.filter(pu => pu.type === 'clock_out')
-	// console.log(clockedIn)
 
 	clockedIn.forEach(ci => {
 		// Get all employees that are clocked in
 		const medewerkers = employees.filter(em => em.id === ci.employee_id)
 		const clockedInMw = medewerkers.find(mw => mw.id === ci.employee_id)
+
+        const clonedArrIn = {...clockedInMw}
 
 		// Get the clocked in time
 		const clockInTime = getClockedInTime(ci)
@@ -78,15 +79,18 @@ server.get("/", async (req, res) => {
 			timePastClockIn = `${diffInMinutes} minuten geleden`
 		}
 
-		clockedInMw.ClockInTime = clockInTimeFormatted
-		clockedInMw.TimePastClockIn = timePastClockIn
-		mwArrayIn = [...mwArrayIn, clockedInMw]
+		clonedArrIn.ClockInTime = clockInTimeFormatted
+		clonedArrIn.TimePastClockIn = timePastClockIn
+
+        mwArrayIn.push(clonedArrIn)
 	})
 
 	clockedOut.forEach(co => {
 		// Get all employees that are clocked out
 		const medewerkers = employees.filter(em => em.id === co.employee_id)
 		const clockedOutMw = medewerkers.find(mw => mw.id === co.employee_id)
+
+        const clonedArrOut = {...clockedOutMw}
 
 		// Get the clocked out time
 		const clockOutTime = getClockedInTime(co)
@@ -103,10 +107,13 @@ server.get("/", async (req, res) => {
 			timePastClockOut = `${diffInMinutes} minuten geleden`
 		}
 
-		clockedOutMw.ClockOutTime = clockOutTimeFormatted
-		clockedOutMw.TimePastClockOut = timePastClockOut
-		mwArrayOut = [...mwArrayOut, clockedOutMw]
+		clonedArrOut.ClockOutTime = clockOutTimeFormatted
+		clonedArrOut.TimePastClockOut = timePastClockOut
+
+        mwArrayOut.push(clonedArrOut)
 	})
+
+    // console.log(mwArrayIn)
 
 	res.render("index", {employees, punches, mwArrayIn, mwArrayOut, title:"Aanwezigheidsoverzicht"})
 })
