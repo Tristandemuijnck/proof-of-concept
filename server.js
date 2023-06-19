@@ -31,6 +31,8 @@ const zonedDate = utcToZonedTime(date, timeZone)
 const start = formatISO(new Date(zonedDate), { representation: 'date' })
 const end = formatISO(add(new Date(zonedDate), { days: 1 }), { representation: 'date' })
 
+const today = format(utcToZonedTime(date, timeZone), 'd-L-y')
+
 // console.log(start)
 
 // console.log(start, "Test start time")
@@ -96,17 +98,11 @@ server.get("/", async (req, res) => {
 		}
 	})
 
-	// console.log(seenMwIds)
-	// console.log(clockedIn)
-
-	// TODO Get all clock in's with specific employee id
 	seenMwIdsIn.forEach(id => {
         const clockedInMwById = mwArrayIn.filter(mw => mw.id === id)
         const clonedArrInById = [...clockedInMwById]
         clockedInMwByIdArr.push(clonedArrInById)
     })
-
-    // console.log(clockedInMwByIdArr)
 
 	clockedOut.forEach(co => {
 		// Get all employees that are clocked out
@@ -146,9 +142,7 @@ server.get("/", async (req, res) => {
         clockedOutMwByIdArr.push(clonedArrOutById)
     })
 
-    // console.log(mwArrayIn)
-
-	res.render("index", {employees, punches, mwArrayIn, mwArrayOut, clockedInMwByIdArr, clockedOutMwByIdArr, title:"Aanwezigheidsoverzicht"})
+	res.render("index", {employees, punches, mwArrayIn, mwArrayOut, clockedInMwByIdArr, clockedOutMwByIdArr, today, title:"Aanwezigheidsoverzicht"})
 })
 
 server.post("/inklokken", async (req, res) => {

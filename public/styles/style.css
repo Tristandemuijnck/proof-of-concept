@@ -155,6 +155,16 @@ header{
 	left: 0;
 }
 
+.clock-date{
+    background: var(--container-bg);
+    border-radius: var(--container-radius);
+    box-shadow: var(--container-shadow);
+    border: solid 1px var(--light-border);
+    padding: 0.3rem 0.8rem;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
 /* ------------------------------ Desktop menu ------------------------------ */
 .dt-nav-outer{
     display: none;
@@ -703,6 +713,13 @@ details[open] > summary .mw-name::after{
         height: 80dvh;
     }
 
+    .clock-date{
+        order: 2;
+    }
+
+    .view-button{
+        order: 3;
+    }
     /* --------------------- Overzicht ingeklokt/uitgeklokt --------------------- */
     .overzicht-ingeklokt, .overzicht-uitgeklokt{
         flex-flow: column wrap;
