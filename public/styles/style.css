@@ -691,6 +691,11 @@ main{
         width: 47%;
     }
 
+	.empty-card{
+		width: 100%;
+		margin-top: 3rem;
+	}
+
     .clock-btn{
         right: 2rem;
         bottom: 2rem;
