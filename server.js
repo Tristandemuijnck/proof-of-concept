@@ -52,6 +52,7 @@ server.get("/", async (req, res) => {
 
 	let mwArrayIn = []
 	let mwArrayOut = []
+	let duplicateMw = []
 	let timePastClockIn
 	let timePastClockOut
 
@@ -83,7 +84,12 @@ server.get("/", async (req, res) => {
 		clonedArrIn.TimePastClockIn = timePastClockIn
 
         mwArrayIn.push(clonedArrIn)
+
+		const duplicateMwFilter = mwArrayIn.filter(mw => mw.id === clonedArrIn.id)
+		duplicateMw.push(duplicateMwFilter)
 	})
+
+	console.log(duplicateMw)
 
 	clockedOut.forEach(co => {
 		// Get all employees that are clocked out
