@@ -284,6 +284,46 @@ main{
 	width: 0;
 }
 
+summary {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+}
+
+summary::marker{
+    display:none;
+}
+
+summary .mw-name::after{
+    content: '';
+    border-width: .4rem;
+    border-style: solid;
+    border-color: transparent transparent transparent var(--primary);
+    position: absolute;
+    top: 1.5rem;
+    right: 0;
+    transform: rotate(0);
+    transform-origin: .2rem 50%;
+    transition: .25s transform ease;
+}
+
+summary .card{
+    width: 100%;
+}
+
+details > .card{
+    padding-top: 0.6rem;
+    padding-left: 1.8rem;
+}
+
+summary .card-content{
+    width: 100%;
+}
+
+details[open] > summary .mw-name::after{
+    transform: rotate(90deg);
+}
+
 .card{
 	display: flex;
 	align-items: center;
@@ -338,7 +378,7 @@ main{
 
 .mw-name{
 	font-size: 1rem;
-	word-break: break-all;
+	word-break: break-word;
 }
 
 .start-time{
@@ -684,11 +724,19 @@ main{
 
     /* --------------------- Overzicht ingeklokt/uitgeklokt --------------------- */
     .overzicht-ingeklokt, .overzicht-uitgeklokt{
-        flex-flow: row wrap;
+        flex-flow: column wrap;
     }
 
     .card{
         width: 47%;
+    }
+
+    details{
+        width: 47%;
+    }
+
+    details .card{
+        width: 100%;
     }
 
 	.empty-card{
@@ -742,6 +790,10 @@ main{
 
     /* --------------------- Overzicht ingeklokt/uitgeklokt --------------------- */
     .card{
+        width: 32%;
+    }
+
+    details{
         width: 32%;
     }
 }

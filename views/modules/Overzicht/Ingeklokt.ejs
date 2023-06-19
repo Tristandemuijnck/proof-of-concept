@@ -1,20 +1,52 @@
 <div class="overzicht-ingeklokt switch-view" id="overzicht-ingeklokt">
 
-	<% if (mwArrayIn.length > 0) { %>
-		<% mwArrayIn.forEach(mw => { %>
-			<div class="card">
-				<picture class="avatar-wrap">
-					<!-- <source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp"> -->
-					<img class="avatar-img" src="<%- mw.avatar %>" alt="Avatar van <%- mw.name %>" width="40"
-						height="40">
-				</picture>
+	<% if (clockedInMwByIdArr.length > 0) { %>
+        <% clockedInMwByIdArr.forEach((clockIn, index) => { %>
+            <%# console.log(clockIn) %>
+            <%# console.log(index) %>
+            <% if (clockIn.length == 1) { %>
+                <div class="card">
+                    <picture class="avatar-wrap">
+                        <img class="avatar-img" src="<%- clockIn[0].avatar %>" alt="Avatar van <%- clockIn[0].name %>" width="40"
+                            height="40">
+                    </picture>
 
-				<div class="card-content">
-					<h2 class="mw-name"><%- mw.name %></h2>
-					<p class="start-time"><%- mw.ClockInTime %> - <%- mw.TimePastClockIn %></p>
-				</div>
-			</div>
-		<% }) %>
+                    <div class="card-content">
+                        <h2 class="mw-name"><%- clockIn[0].name %></h2>
+                        <p class="start-time"><%- clockIn[0].ClockInTime %> - <%- clockIn[0].TimePastClockIn %></p>
+                    </div>
+                </div>
+            <% } else{ %>
+                <details>
+                    <summary>
+                        <div class="card">
+                            <picture class="avatar-wrap">
+                                <img class="avatar-img" src="<%- clockIn[0].avatar %>" alt="Avatar van <%- clockIn[0].name %>" width="40"
+                                    height="40">
+                            </picture>
+
+                            <div class="card-content">
+                                <h2 class="mw-name"><%- clockIn[0].name %></h2>
+                                <p class="start-time">Bekijk alle inklokmomenten</p>
+                            </div>
+                        </div>
+                    </summary>
+
+                    <% clockIn.forEach(mw => { %>
+                        <div class="card">
+                            <picture class="avatar-wrap">
+                                <img class="avatar-img" src="<%- mw.avatar %>" alt="Avatar van <%- mw.name %>" width="40" height="40">
+                            </picture>
+
+                            <div class="card-content">
+                                <h2 class="mw-name"><%- mw.ClockInTime %></h2>
+                                <p class="start-time"><%- mw.TimePastClockIn %></p>
+                            </div>
+                        </div>
+                    <% }) %>
+                </details>
+            <% } %>
+        <% }) %>
 	<% } else { %>
 		<div class="empty-card">
 			<picture class="svg-wrap">
@@ -26,6 +58,8 @@
 			</div>
 		</div>
 	<% } %>
+
+
 
 	<!-- Clock in button -->
 	<a href="/inklokken" class="clock-btn clock-in">
