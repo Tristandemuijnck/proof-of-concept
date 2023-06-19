@@ -332,10 +332,6 @@ details[open] > summary .mw-name::after{
 	padding-bottom: 0.5rem;
 }
 
-.reverse-card{
-	flex-direction: row-reverse;
-}
-
 .avatar-wrap{
 	display: flex;
 	align-items: center;
@@ -351,21 +347,6 @@ details[open] > summary .mw-name::after{
 	position: relative;
 }
 
-.reverse-content{
-	position: relative;
-	align-items: flex-end;
-}
-
-.reverse-content::after{
-	content: "";
-	position: absolute;
-	top: 0;
-	right: -0.5rem;
-	width: 1px;
-	height: 100%;
-	background: var(--secondary);
-}
-
 .overzicht-ingeklokt .card-content::before{
 	content: "";
 	position: absolute;
@@ -376,6 +357,16 @@ details[open] > summary .mw-name::after{
 	background: var(--primary);
 }
 
+.overzicht-uitgeklokt .card-content::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -0.5rem;
+    width: 1px;
+    height: 100%;
+    background: var(--secondary);
+}
+
 .mw-name{
 	font-size: 1rem;
 	word-break: break-word;
@@ -384,16 +375,6 @@ details[open] > summary .mw-name::after{
 .start-time{
 	font-size: 0.8rem;
 	color: var(--light-text);
-}
-
-.reverse-time{
-	display: flex;
-	flex-direction: row-reverse;
-	gap: 0.3rem;
-}
-
-.reverse-time span{
-    text-align: right;
 }
 
 /* Empty state */

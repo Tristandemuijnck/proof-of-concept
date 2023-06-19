@@ -57,8 +57,10 @@ server.get("/", async (req, res) => {
 	let timePastClockIn
 	let timePastClockOut
 
-	let seenMwIds = []
+	let seenMwIdsIn = []
+    let seenMwIdsOut = []
     let clockedInMwByIdArr = []
+    let clockedOutMwByIdArr = []
 
 	const clockedIn = punches.data.filter(pu => pu.type === 'clock_in')
 	const clockedOut = punches.data.filter(pu => pu.type === 'clock_out')
@@ -89,8 +91,8 @@ server.get("/", async (req, res) => {
 
         mwArrayIn.push(clonedArrIn)
 
-		if (!seenMwIds.includes(clonedArrIn.id)) {
-			seenMwIds.push(clonedArrIn.id)
+		if (!seenMwIdsIn.includes(clonedArrIn.id)) {
+			seenMwIdsIn.push(clonedArrIn.id)
 		}
 	})
 
@@ -98,7 +100,7 @@ server.get("/", async (req, res) => {
 	// console.log(clockedIn)
 
 	// TODO Get all clock in's with specific employee id
-	seenMwIds.forEach(id => {
+	seenMwIdsIn.forEach(id => {
         const clockedInMwById = mwArrayIn.filter(mw => mw.id === id)
         const clonedArrInById = [...clockedInMwById]
         clockedInMwByIdArr.push(clonedArrInById)
@@ -132,11 +134,21 @@ server.get("/", async (req, res) => {
 		clonedArrOut.TimePastClockOut = timePastClockOut
 
         mwArrayOut.push(clonedArrOut)
+
+        if (!seenMwIdsOut.includes(clonedArrOut.id)) {
+			seenMwIdsOut.push(clonedArrOut.id)
+		}
 	})
+
+    seenMwIdsOut.forEach(id => {
+        const clockedOutMwById = mwArrayOut.filter(mw => mw.id === id)
+        const clonedArrOutById = [...clockedOutMwById]
+        clockedOutMwByIdArr.push(clonedArrOutById)
+    })
 
     // console.log(mwArrayIn)
 
-	res.render("index", {employees, punches, mwArrayIn, mwArrayOut, clockedInMwByIdArr, title:"Aanwezigheidsoverzicht"})
+	res.render("index", {employees, punches, mwArrayIn, mwArrayOut, clockedInMwByIdArr, clockedOutMwByIdArr, title:"Aanwezigheidsoverzicht"})
 })
 
 server.post("/inklokken", async (req, res) => {

@@ -1,20 +1,47 @@
 <div class="overzicht-uitgeklokt" id="overzicht-uitgeklokt">
+    <% if (clockedOutMwByIdArr.length > 0) { %>
+        <% clockedOutMwByIdArr.forEach((clockOut, index) => { %>
+            <% if (clockOut.length == 1) { %>
+                <div class="card">
+                    <picture class="avatar-wrap">
+                        <img class="avatar-img" src="<%- clockOut[0].avatar %>" alt="Avatar van <%- clockOut[0].name %>" width="40" height="40">
+                    </picture>
 
-	<% if (mwArrayOut.length > 0) { %>
-		<% mwArrayOut.forEach(mw => { %>
-			<div class="card reverse-card">
-				<picture class="avatar-wrap">
-					<!-- <source class="avatar-img" srcset="/assets/avatar.webp" type="image/webp"> -->
-					<img class="avatar-img" src="<%- mw.avatar %>" alt="Avatar van <%- mw.name %>"
-						width="40" height="40">
-				</picture>
+                    <div class="card-content">
+                        <h2 class="mw-name"><%- clockOut[0].name %></h2>
+                        <p class="start-time"><span><%- clockOut[0].ClockOutTime %></span> <span>-</span> <span><%- clockOut[0].TimePastClockOut %></span></p>
+                    </div>
+                </div>
+            <% } else{ %>
+                <details>
+                    <summary>
+                        <div class="card">
+                            <picture class="avatar-wrap">
+                                <img class="avatar-img" src="<%- clockOut[0].avatar %>" alt="Avatar van <%- clockOut[0].name %>" width="40" height="40">
+                            </picture>
 
-				<div class="card-content reverse-content">
-					<h2 class="mw-name"><%- mw.name %></h2>
-					<p class="start-time reverse-time"><span><%- mw.ClockOutTime %></span> <span>-</span> <span><%- mw.TimePastClockOut %></span></p>
-				</div>
-			</div>
-		<% }) %>
+                            <div class="card-content">
+                                <h2 class="mw-name"><%- clockOut[0].name %></h2>
+                                <p class="start-time">Bekijk alle uitklokmomenten</p>
+                            </div>
+                        </div>
+                    </summary>
+
+                    <% clockOut.forEach(mw => { %>
+                        <div class="card">
+                            <picture class="avatar-wrap">
+                                <img class="avatar-img" src="<%- mw.avatar %>" alt="Avatar van <%- mw.name %>" width="40" height="40">
+                            </picture>
+
+                            <div class="card-content">
+                                <h2 class="mw-name"><%- mw.ClockOutTime %></h2>
+                                <p class="start-time"><%- mw.TimePastClockOut %></p>
+                            </div>
+                        </div>
+                    <% }) %>
+                </details>
+            <% } %>
+        <% }) %>
 	<% } else { %>
 		<div class="empty-card">
 			<picture class="svg-wrap">
@@ -22,7 +49,7 @@
 			</picture>
 
 			<div class="empty-card-content">
-				<h2 class="empty-text">Er zijn geen medewerkers uitgeklokt</h2>
+				<h2 class="empty-text">Er zijn geen medewerkers uigeklokt</h2>
 			</div>
 		</div>
 	<% } %>
