@@ -43,7 +43,7 @@
 						<div class="card-content">
 							<p class="mw-afdeling-title">Medewerker</p>
 							<select name="employee" id="employee" class="mw-afdeling employee-input">
-								<% employees.forEach(es => { %>
+								<% sortedEmployees.forEach(es => { %>
 									<option value="<%- es.id %>"><%- es.name %></option>
 								<% }) %>
 							</select>

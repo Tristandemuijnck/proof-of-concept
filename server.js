@@ -162,9 +162,19 @@ server.get("/inklokken", async (req, res) => {
 	const departments = await dataFetch("https://api.werktijden.nl/2/departments")
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
 
+    const sortedEmployees = employees.sort((a, b) => {
+        if (a.last_name.toLowerCase() < b.last_name.toLowerCase()) {
+            return -1
+        }
+        if (a.last_name.toLowerCase() > b.last_name.toLowerCase()) {
+            return 1
+        }
+        return 0
+    })
+
 	const currentTime = format(utcToZonedTime(new Date(), timeZone), 'HH:mm')
 
-	res.render("inklokken", {title:"Inklokken", departments, employees, currentTime})
+	res.render("inklokken", {title:"Inklokken", departments, employees, sortedEmployees, currentTime})
 })
 
 server.post("/uitklokken", async (req, res) => {
@@ -184,9 +194,19 @@ server.get("/uitklokken", async (req, res) => {
 	const departments = await dataFetch("https://api.werktijden.nl/2/departments")
 	const employees = await dataFetch("https://api.werktijden.nl/2/employees")
 
+    const sortedEmployees = employees.sort((a, b) => {
+        if (a.last_name.toLowerCase() < b.last_name.toLowerCase()) {
+            return -1
+        }
+        if (a.last_name.toLowerCase() > b.last_name.toLowerCase()) {
+            return 1
+        }
+        return 0
+    })
+
 	const currentTime = format(utcToZonedTime(new Date(), timeZone), 'HH:mm')
 
-	res.render("uitklokken", {title:"Uitklokken", departments, employees, currentTime})
+	res.render("uitklokken", {title:"Uitklokken", departments, employees, sortedEmployees, currentTime})
 })
 
 /* -------------------------------------------------------------------------- */
