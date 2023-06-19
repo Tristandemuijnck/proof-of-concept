@@ -31,6 +31,8 @@ const zonedDate = utcToZonedTime(date, timeZone)
 const start = formatISO(new Date(zonedDate), { representation: 'date' })
 const end = formatISO(add(new Date(zonedDate), { days: 1 }), { representation: 'date' })
 
+// console.log(start)
+
 // console.log(start, "Test start time")
 // console.log(end, "Test end time")
 
@@ -52,9 +54,10 @@ server.get("/", async (req, res) => {
 
 	let mwArrayIn = []
 	let mwArrayOut = []
-	let duplicateMw = []
 	let timePastClockIn
 	let timePastClockOut
+
+	let seenMwIds = []
 
 	const clockedIn = punches.data.filter(pu => pu.type === 'clock_in')
 	const clockedOut = punches.data.filter(pu => pu.type === 'clock_out')
@@ -85,11 +88,16 @@ server.get("/", async (req, res) => {
 
         mwArrayIn.push(clonedArrIn)
 
-		const duplicateMwFilter = mwArrayIn.filter(mw => mw.id === clonedArrIn.id)
-		duplicateMw.push(duplicateMwFilter)
+		if (!seenMwIds.includes(clonedArrIn.id)) {
+			seenMwIds.push(clonedArrIn.id)
+		}
 	})
 
-	console.log(duplicateMw)
+	// console.log(seenMwIds)
+	// console.log(clockedIn)
+
+	// TODO Get all clock in's with specific employee id
+	// const specificClockInEmployee =
 
 	clockedOut.forEach(co => {
 		// Get all employees that are clocked out
