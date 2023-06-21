@@ -28,7 +28,7 @@
 							<img src="./assets/department.svg" alt="" width="25" height="30">
 						</div>
 						<div class="card-content">
-							<p class="mw-afdeling-title">Afdeling</p>
+							<label class="mw-afdeling-title" for="department">Afdeling</label>
 							<select name="department" id="department" class="mw-afdeling">
 								<% departments.forEach(ds => { %>
 									<option value="<%- ds.id %>"><%- ds.name %></option>
@@ -41,7 +41,7 @@
 							<img src="./assets/employee.svg" alt="" width="25" height="30">
 						</div>
 						<div class="card-content">
-							<p class="mw-afdeling-title">Medewerker</p>
+							<label class="mw-afdeling-title" for="employee">Medewerker</label>
 							<select name="employee" id="employee" class="mw-afdeling employee-input">
 								<% sortedEmployees.forEach(es => { %>
 									<option value="<%- es.id %>"><%- es.name %></option>
