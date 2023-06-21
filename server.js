@@ -97,7 +97,7 @@ server.get("/", async (req, res) => {
 			seenMwIdsIn.push(clonedArrIn.id)
 		}
 	})
-
+ 
 	seenMwIdsIn.forEach(id => {
         const clockedInMwById = mwArrayIn.filter(mw => mw.id === id)
         const clonedArrInById = [...clockedInMwById]
