@@ -16,6 +16,8 @@
 	<main class="alt-main">
 		<!-- Uitklokken  -->
 		<section class="inklokken">
+            <!-- Map -->
+            <div id="map" class="map"></div>
 			<!-- Uitklokken container -->
 			<div class="inklokken-container">
 				<form action="/uitklokken" method="post" name="uitklokForm" id="uitklokForm" class="inklok-form">
@@ -56,5 +58,71 @@
 	</main>
 	<%- include("./modules/MobileNav") %>
 </div>
+
+<script defer>
+    mapboxgl.accessToken = '<%= mapToken %>'
+
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/tristandm/clj6ax9yh004o01qo80o36in9',
+        center: [4.889073,52.379765],
+        zoom: 15
+    }).addControl(
+        new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true,
+            showUserHeading: true
+        })
+    )
+
+    map.on('load', () => {
+        const mapArea = {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [4.889073,52.379765],
+                        [4.888665,52.379359],
+                        [4.889245,52.379196],
+                        [4.889616,52.379593],
+                        [4.889382,52.379668],
+                        [4.889073,52.379765]
+                    ]
+                ]
+            }
+        }
+
+        map.addSource('mapArea', {
+            type: 'geojson',
+            data: mapArea
+        })
+
+        map.addLayer({
+            id: 'mapArea',
+            type: 'fill',
+            source: 'mapArea',
+            layout: {},
+            paint: {
+                'fill-color': '#088',
+                'fill-opacity': 0.8
+            }
+        })
+
+        map.addLayer({
+            id: 'outline',
+            type: 'line',
+            source: 'mapArea',
+            layout: {},
+            paint: {
+                'line-color': '#000',
+                'line-width': 2
+            }
+        })
+    })
+</script>
+
 </body>
 </html>

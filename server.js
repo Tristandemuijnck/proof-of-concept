@@ -97,7 +97,7 @@ server.get("/", async (req, res) => {
 			seenMwIdsIn.push(clonedArrIn.id)
 		}
 	})
- 
+
 	seenMwIdsIn.forEach(id => {
         const clockedInMwById = mwArrayIn.filter(mw => mw.id === id)
         const clonedArrInById = [...clockedInMwById]
@@ -174,7 +174,7 @@ server.get("/inklokken", async (req, res) => {
 
 	const currentTime = format(utcToZonedTime(new Date(), timeZone), 'HH:mm')
 
-	res.render("inklokken", {title:"Inklokken", departments, employees, sortedEmployees, currentTime})
+	res.render("inklokken", {title:"Inklokken", departments, employees, sortedEmployees, currentTime, mapToken: process.env.MAP_KEY })
 })
 
 server.post("/uitklokken", async (req, res) => {
@@ -206,7 +206,7 @@ server.get("/uitklokken", async (req, res) => {
 
 	const currentTime = format(utcToZonedTime(new Date(), timeZone), 'HH:mm')
 
-	res.render("uitklokken", {title:"Uitklokken", departments, employees, sortedEmployees, currentTime})
+	res.render("uitklokken", {title:"Uitklokken", departments, employees, sortedEmployees, currentTime, mapToken: process.env.MAP_KEY})
 })
 
 /* -------------------------------------------------------------------------- */

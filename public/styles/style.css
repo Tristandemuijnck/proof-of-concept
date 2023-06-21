@@ -475,6 +475,7 @@ details[open] > summary .mw-name::after{
 .inklokken{
 	display: flex;
 	flex-direction: column;
+    justify-content: flex-start;
 	width: 85%;
 	height: 100%;
 	background: var(--container-bg);
@@ -597,6 +598,16 @@ details[open] > summary .mw-name::after{
 
 .bg-secondary{
 	background: var(--secondary);
+}
+
+/* ----------------------------------- Map ---------------------------------- */
+.map{
+    width: auto;
+    position: absolute;
+    height: 50%;
+    bottom: 0;
+    border-top-left-radius: var(--container-radius);
+    border-top-right-radius: var(--container-radius);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -751,7 +762,7 @@ details[open] > summary .mw-name::after{
     .alt-content-wrapper{
         display: flex;
         flex-direction: column;
-        height: initial;
+        height: 78dvh;
         margin-top: 1rem;
     }
 
